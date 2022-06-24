@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import { CacheProvider } from '@emotion/react';
-// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-// import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import { createEmotionCache } from '@theme/createEmotionCache';
-import { theme } from '@theme/theme';
+import { createEmotionCache } from '../theme/create-emotion-cache';
+import { theme } from '../theme';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -25,12 +25,12 @@ const App = (props) => {
           content="initial-scale=1, width=device-width"
         />
       </Head>
-      {/* <LocalizationProvider dateAdapter={AdapterDateFns}> */}
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           {getLayout(<Component {...pageProps} />)}
         </ThemeProvider>
-      {/* </LocalizationProvider> */}
+      </LocalizationProvider>
     </CacheProvider>
   );
 };
