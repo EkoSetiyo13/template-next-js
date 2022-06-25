@@ -60,16 +60,15 @@ const items = [
   // }
 ];
 
+
 export const DashboardSidebar = (props) => {
   const { open, onClose } = props;
+  const lazyRoot = useRef(null)
   const router = useRouter();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
     noSsr: false
   });
-
-  const lazyRoot = useRef(null)
-
 
   useEffect(
     () => {
@@ -100,7 +99,9 @@ export const DashboardSidebar = (props) => {
               href="/"
               passHref
             >
-              <Image lazyRoot={lazyRoot} src="/images/logos/lautan_luas.png" width="100" height="100" />
+               <div ref={lazyRoot}>       
+                  <Image lazyRoot={lazyRoot} src="/images/logos/lautan_luas.png" width="100" height="100" />
+               </div>
             </NextLink>
           </Box>
         </div>

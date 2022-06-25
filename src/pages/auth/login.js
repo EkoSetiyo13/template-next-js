@@ -146,7 +146,7 @@ const Login = ({ messsageLogin, isLogin }) => {
                         </Box>
                         <TextField
                             error={Boolean(formik.touched.email && formik.errors.email)}
-                            fullWidth
+                            fullwidth
                             helperText={formik.touched.email && formik.errors.email}
                             label="Email Address"
                             margin="normal"
@@ -159,7 +159,7 @@ const Login = ({ messsageLogin, isLogin }) => {
                         />
                         <TextField
                             error={Boolean(formik.touched.password && formik.errors.password)}
-                            fullWidth
+                            fullwidth
                             helperText={formik.touched.password && formik.errors.password}
                             label="Password"
                             margin="normal"
@@ -174,7 +174,7 @@ const Login = ({ messsageLogin, isLogin }) => {
                             <Button
                                 color="primary"
                                 // disabled={formik.isSubmitting}
-                                fullWidth
+                                fullwidth
                                 size="large"
                                 type="submit"
                                 variant="contained"
