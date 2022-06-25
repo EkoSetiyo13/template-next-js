@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { DashboardLayout } from '@components/layouts/dashboard-layout';
+import { useUser } from '@lib/hooks'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -14,6 +15,8 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function BasicGrid() {
+  const user = useUser()
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
@@ -30,6 +33,12 @@ export default function BasicGrid() {
           <Item>xs=8</Item>
         </Grid>
       </Grid>
+      {user && (
+        <>
+          <p>Currently logged in as:</p>
+          <pre>{JSON.stringify(user, null, 2)}</pre>
+        </>
+      )}
     </Box>
   );
 }

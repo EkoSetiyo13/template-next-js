@@ -10,6 +10,7 @@ import { Users as UsersIcon } from '../icons/users';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Typography from '@mui/material/Typography';
+import { useRouter } from 'next/router';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -21,6 +22,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export const DashboardNavbar = (props) => {
   const { onSidebarOpen, ...other } = props;
+  const router = useRouter();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -29,6 +31,11 @@ export const DashboardNavbar = (props) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleLogout = () => {
+    router.push('/login');
+
+  }
 
   return (
     <>
@@ -109,11 +116,14 @@ export const DashboardNavbar = (props) => {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">{setting}</Typography>
+            {/* {settings.map((item, index) => (
+              <MenuItem key={index} onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">{item}</Typography>
               </MenuItem>
-            ))}
+            ))} */}
+            <MenuItem onClick={handleLogout}>
+                <Typography textAlign="center">Logout</Typography>
+            </MenuItem>
           </Menu>
         </Toolbar>
       </DashboardNavbarRoot>

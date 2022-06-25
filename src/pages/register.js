@@ -7,25 +7,25 @@ import { Box, Card, Button, Container, Grid, Link, TextField, Typography, Image 
 import { useUser } from '@lib/hooks'
 import { useState } from 'react'
 
-const Login = () => {
+const Register = () => {
     useUser({ redirectTo: '/dashboard', redirectIfFound: true })
 
-
     async function handleSubmit(e) {
-  
+        
         const body = {
           username: e.username,
           password: e.password,
         }
     
+    
         try {
-          const res = await fetch('/api/login', {
+          const res = await fetch('/api/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body),
           })
           if (res.status === 200) {
-            Router.push('/')
+            Router.push('/login')
           } else {
             throw new Error(await res.text())
           }
@@ -161,27 +161,7 @@ const Login = () => {
                                                 Sign In Now
                                             </Button>
                                         </Box>
-                                        {/* <Typography
-                                            color="textSecondary"
-                                            variant="body2"
-                                        >
-                                            Don&apos;t have an account?
-                                            {' '}
-                                            <NextLink
-                                                href="/register"
-                                            >
-                                                <Link
-                                                    to="/register"
-                                                    variant="subtitle2"
-                                                    underline="hover"
-                                                    sx={{
-                                                        cursor: 'pointer'
-                                                    }}
-                                                >
-                                                    Sign Up
-                                                </Link>
-                                            </NextLink>
-                                        </Typography> */}
+                                       
                                     </form>
                                 </Container>
                             </Box>
@@ -196,4 +176,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;

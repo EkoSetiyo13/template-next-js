@@ -11,6 +11,9 @@
       "@theme/*": [
         "src/theme/*"
       ],
+      "@lib/*": [
+        "src/lib/*"
+      ]
     }
   },
   "include": [
