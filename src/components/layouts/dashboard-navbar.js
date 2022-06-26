@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip } from '@mui/material';
+import { AppBar,Divider , Avatar, Badge, Box, IconButton, Toolbar, Tooltip } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { Bell as BellIcon } from '../icons/bell';
@@ -11,6 +11,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/router';
+import { useUser } from '@lib/hooks'
+
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -23,6 +25,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 export const DashboardNavbar = (props) => {
   const { onSidebarOpen, ...other } = props;
   const router = useRouter();
+  const user = useUser()
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -32,9 +35,13 @@ export const DashboardNavbar = (props) => {
     setAnchorElUser(null);
   };
 
-  const handleLogout = () => {
-    router.push('/login');
+  const handleLogout = async () => {
+    const res = await fetch('/api/logout').then(response => response.json())
+    .then(data => console.log(data))
+    .catch(err => console.error(err));
+    window.location.reload();
 
+   
   }
 
   return (
@@ -70,11 +77,6 @@ export const DashboardNavbar = (props) => {
           </IconButton>
 
           <Box sx={{ flexGrow: 1 }} />
-          {/* <Tooltip title="Contacts">
-            <IconButton sx={{ ml: 1 }}>
-              <UsersIcon fontSize="small" />
-            </IconButton>
-          </Tooltip> */}
           <Tooltip title="Notifications">
             <IconButton sx={{ ml: 1 }}>
               <Badge
@@ -121,8 +123,11 @@ export const DashboardNavbar = (props) => {
                 <Typography textAlign="center">{item}</Typography>
               </MenuItem>
             ))} */}
+            <Typography textAlign="left" sx={{ pl: '10px' }}>Name: {user.username}</Typography>
+            <Typography textAlign="left" sx={{ pl: '10px' }}>Role: {user.is_admin ? "Admin": "User"}</Typography>
+            <Divider />
             <MenuItem onClick={handleLogout}>
-                <Typography textAlign="center">Logout</Typography>
+                <Typography textAlign="left">Logout</Typography>
             </MenuItem>
           </Menu>
         </Toolbar>

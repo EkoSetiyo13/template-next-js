@@ -39,7 +39,7 @@ const Login = () => {
             body: JSON.stringify(body),
           })
           if (res.status === 200) {
-            Router.push('/')
+            router.push('/dashboard');
           } else {
             throw new Error(await res.text())
           }
@@ -71,7 +71,6 @@ const Login = () => {
         }),
         onSubmit: (e) => {
             handleSubmit(e)
-            router.push('/dashboard');
         }
     });
 

@@ -16,6 +16,7 @@ model Admin {
   email     String   @unique
   password  String
   salt      String
+  is_admin  Boolean
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
@@ -28,6 +29,7 @@ model User {
   email        String?  @unique
   password     String?
   company_code String
+  is_admin     Boolean
   createdAt    DateTime @default(now()) @map(name: "created_at")
   updatedAt    DateTime @updatedAt @map(name: "updated_at")
 
