@@ -1,5 +1,6 @@
 import crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
+import prisma from "@prisma-client/index";
 
 /**
  * User methods. The example doesn't contain a DB, but for real applications you must use a
@@ -8,7 +9,9 @@ import { v4 as uuidv4 } from "uuid";
 
 // const users = []
 const salt = crypto.randomBytes(16).toString("hex");
-const hash = crypto.pbkdf2Sync("contoh", salt, 1000, 64, "sha512").toString("hex");
+const hash = crypto
+  .pbkdf2Sync("contoh", salt, 1000, 64, "sha512")
+  .toString("hex");
 const users = [
   {
     id: uuidv4(),
@@ -42,8 +45,13 @@ export async function createUser({ username, password }) {
 
 // Here you should lookup for the user in your DB
 export async function findUser({ username }) {
+  const result = await prisma.admin.findFirst({
+    where: {
+      username: username
+    }
+  });
   // This is an in memory store for users, there is no data persistence without a proper DB
-  return users.find(user => user.username === username);
+  return result;
 }
 
 // Compare the password of an already fetched user (using `findUser`) and compare the
@@ -52,6 +60,6 @@ export function validatePassword(user, inputPassword) {
   const inputHash = crypto
     .pbkdf2Sync(inputPassword, user.salt, 1000, 64, "sha512")
     .toString("hex");
-  const passwordsMatch = user.hash === inputHash;
+  const passwordsMatch = user.password === inputHash;
   return passwordsMatch;
 }

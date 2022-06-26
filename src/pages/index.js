@@ -5,25 +5,10 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Card, Button, Container, Grid, Link, TextField, Typography, Image } from '@mui/material';
 import { useUser } from '@lib/hooks'
-import { useState, useEffect } from 'react'
-import _ from 'lodash'
-import { PropagateLoader } from "react-spinners";
+import { useState } from 'react'
 
-const Login = () => {
+const IndexPage = () => {
     useUser({ redirectTo: '/dashboard', redirectIfFound: true })
-    const user = useUser()
-    const [loading, setLoading] = useState(true);
-
-    useEffect(()=> {
-        console.log('user', _.isUndefined(user))
-        if(!_.isUndefined(user)) {
-            setTimeout(() => {
-                setLoading(false)
-            }, 1500);
-        }
-    }, [user])
-
-
 
     async function handleSubmit(e) {
   
@@ -71,23 +56,9 @@ const Login = () => {
         }),
         onSubmit: (e) => {
             handleSubmit(e)
-            router.push('/dashboard');
+            // router.push('/');
         }
     });
-
-    if(loading) {
-       return( 
-        <Box 
-            display="flex" 
-            alignItems="center"
-            justifyContent="center"
-            style={{ minHeight: '100vh' }}
-
-        >
-             <PropagateLoader color={'#2596be'} loading={loading} size={20} />
-        </Box>
-        );
-    }
 
     return (
         <>
@@ -215,7 +186,6 @@ const Login = () => {
                             </Box>
                         </Card>
                     </Grid>
-
                 </Grid>
 
             </Container>
@@ -224,4 +194,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default IndexPage;

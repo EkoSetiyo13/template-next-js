@@ -6,6 +6,7 @@ import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { createEmotionCache } from '../theme/create-emotion-cache';
 import { theme } from '../theme';
+import {RouteGuard} from '@lib/guard-auth';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -28,7 +29,9 @@ const App = (props) => {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
+          <RouteGuard>
           {getLayout(<Component {...pageProps} />)}
+          </RouteGuard>
         </ThemeProvider>
       </LocalizationProvider>
     </CacheProvider>

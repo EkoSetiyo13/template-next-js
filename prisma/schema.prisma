@@ -6,16 +6,49 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+model Admin {
+  id        String   @id @default(uuid())
+  username  String?
+  email     String   @unique
+  password  String
+  salt      String
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  @@map(name: "admins")
+}
+
 model User {
-  id            String       @default(cuid()) @id
-  name          String?
-  email         String?   @unique
-  password      String?
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+  id           String   @id @default(uuid())
+  username     String?
+  email        String?  @unique
+  password     String?
+  company_code String
+  createdAt    DateTime @default(now()) @map(name: "created_at")
+  updatedAt    DateTime @updatedAt @map(name: "updated_at")
+
   @@map(name: "users")
+}
+
+model CustomerForm {
+  id        String   @id @default(uuid())
+  form_type String
+  purpose   String
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  @@map(name: "customer_forms")
+}
+
+model VendorForm {
+  id        String   @id @default(uuid())
+  purpose   String
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  @@map(name: "vendor_forms")
 }
