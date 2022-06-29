@@ -35,7 +35,7 @@ function RouteGuard({ children }) {
   async function authCheck(url) {
     // redirect to login page if accessing a private page and not logged in
     const user = await useUserGuard();
-    const publicPaths = ["/login", "/auth/login", "/user/login"];
+    const publicPaths = ["/login", "/auth/login",];
     const path = url.split("?")[0];
     if (!user.user && !publicPaths.includes(path)) {
       setAuthorized(false);
